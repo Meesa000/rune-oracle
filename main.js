@@ -13,13 +13,14 @@ function getStats() {
    const url = `${baseUrl}?player=${encodeURIComponent(playerName)}`;
 
    // Clear previous data
-   infoContainer.innerHTML = '';
+   infoContent.innerHTML = '';
    
     fetch(url)
    .then(response => {
     return response.json();
    })
-   .then (data => { 
+   .then (data => {
+      console.log(data);
 
     const tbl = document.createElement('table');
     tbl.style.borderCollapse = 'collapse';
@@ -32,8 +33,8 @@ function getStats() {
     const tHeaderXp = document.createElement('th');
     const theaderRank = document.createElement('th');
 
-    const headerTextSkill = document.createTextNode('Skill Name');
-    const headerTextLevel = document.createTextNode('Skill Level');
+    const headerTextSkill = document.createTextNode('Skill');
+    const headerTextLevel = document.createTextNode('Level');
     const headerTextXp = document.createTextNode('XP');
     const headerTextRank = document.createTextNode('Rank');
 
@@ -59,6 +60,7 @@ function getStats() {
     //creates the body and implements api data
     for (i=0;i < data.skills.length;i++) {
 
+      
       const row = document.createElement('tr');
       const cellSkill = document.createElement('td');
       const cellLevel = document.createElement('td');
@@ -68,6 +70,7 @@ function getStats() {
       const cellTextSkillName = document.createTextNode(data.skills[i].name);
       const cellTextLevel = document.createTextNode(data.skills[i].level);
       const cellTextXp = document.createTextNode(data.skills[i].xp);
+      console.log(data.skills[i].xp)
       const cellTextRank = document.createTextNode(data.skills[i].rank);
 
       // array for cells
@@ -77,6 +80,7 @@ function getStats() {
       cells.forEach(cell => {
          cell.style.borderBottom = '1px solid gray';
          cell.style.textAlign = 'center';
+         cell.style.padding = '10px'
       })
 
       // data append
@@ -84,13 +88,14 @@ function getStats() {
       row.appendChild(cellSkill);
       cellLevel.appendChild(cellTextLevel);
       row.appendChild(cellLevel);
-      cellRank.appendChild(cellTextRank);
-      row.appendChild(cellRank);
       cellXp.append(cellTextXp);
       row.appendChild(cellXp);
-      tblBody.appendChild(row);
+      cellRank.appendChild(cellTextRank);
+      row.appendChild(cellRank);
 
-      // table append to main containers
+
+       // table append to main containers
+      tblBody.appendChild(row);
       tbl.appendChild(tblBody);
       infoContent.appendChild(tbl);
       infoContainer.appendChild(infoContent);
