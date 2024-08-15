@@ -109,7 +109,3 @@ function getStats() {
 }
 
 searchPlayerBtn.addEventListener('click',getStats);
-
-// CREATE A TABLE AND PUT THE DATA IN THERE
-
-
